@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class HeroBase : MonoBehaviour
 {
-   [SerializeField] private string Name;
-   [SerializeField] private int MaxHP;
+   [SerializeField] public string Name;
+   [SerializeField] public int MaxHP;
    private int actualHP;
-   [SerializeField] private int Damage;
+   [SerializeField] public int Damage;
 
     [SerializeField] private HPBarLogic hpbar;
-
+    public bool alreadyAttacked = false;
+    [SerializeField] private Animator anim;
     public void Awake()
     {
         actualHP = MaxHP;
@@ -40,6 +41,7 @@ public class HeroBase : MonoBehaviour
         {
             actualHP = newHPvalue;
         }
+        updateHPBAR();
     }
 
     public void MoralityUp()
@@ -54,7 +56,8 @@ public class HeroBase : MonoBehaviour
 
     public void updateHPBAR()
     {
-
+        Debug.Log(actualHP);
+        hpbar.SetHealth(actualHP);
     }
 
     
@@ -62,5 +65,20 @@ public class HeroBase : MonoBehaviour
     public void Dead()
     {
         Debug.Log("hero died");
+    }
+
+    public void PlayAttack()
+    {
+        anim.Play("Attack");
+    }
+
+    public void PlayWalk()
+    {
+        anim.Play("HeroWalk");
+    }
+
+    public void PlayIdle()
+    {
+        anim.Play("HeroIdle");
     }
 }
