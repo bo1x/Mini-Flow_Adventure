@@ -598,7 +598,8 @@ MonoBehaviour:
   hero1: {fileID: 1137776931}
   hero2: {fileID: 900127533}
   hero3: {fileID: 1571789543}
-  _gamestate: 0
+  _gamestate: 1
+  _combatstate: 0
   HeroMove: {fileID: 522105362}
   pointsInterest:
   - 20
@@ -606,6 +607,14 @@ MonoBehaviour:
   - 60
   - 80
   - 109
+  EnemyPrefabs:
+  - {fileID: 4197651086337281736, guid: fc574ecc8b5a06a4ca099982a2229ec4, type: 3}
+  - {fileID: 2197852831065646521, guid: d54c0b97741efc447b2438e7172e76b8, type: 3}
+  - {fileID: 8306097549697377911, guid: 446ee5d575139ee4191456be1c5a1a2c, type: 3}
+  - {fileID: 9108394617313084305, guid: 9d3374ebb181d6b4aae882d0673f9d9d, type: 3}
+  enemy1: {fileID: 0}
+  enemy2: {fileID: 0}
+  enemy3: {fileID: 0}
 --- !u!4 &527945495
 Transform:
   m_ObjectHideFlags: 0

@@ -8,11 +8,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] HeroBase hero2;
     [SerializeField] HeroBase hero3;
     [SerializeField] private gameState _gamestate;
+    [SerializeField] private combatState _combatstate;
 
     [SerializeField] private GameObject HeroMove;
     //27.5
     [SerializeField] private List<float> pointsInterest;
+    [SerializeField] private List<GameObject> EnemyPrefabs;
     private float lastPointOfInterest = 0;
+
+    private List<EnemyBase> enemiesAlive;
+
+    [SerializeField] EnemyBase enemy1;
+    [SerializeField] EnemyBase enemy2;
+    [SerializeField] EnemyBase enemy3;
+
+
+    private bool heroIsAttacking = false;
+    private bool enemyIsAttacking = false;
     public enum gameState
     {
         Idle,
@@ -20,6 +32,15 @@ public class GameManager : MonoBehaviour
         Fight,
         ReadingQuest,
         bossFight
+    }
+
+    public enum combatState
+    {
+        Start,
+        HerosTurn,
+        EnemysTurn,
+        Lost,
+        Win
     }
 
     public void Awake()
@@ -64,24 +85,152 @@ public class GameManager : MonoBehaviour
 
         if(_gamestate == gameState.Fight)
         {
-
+            
+            Combat();
         }
     }
     public void Combat()
     {
+        if (_combatstate == combatState.Lost)
+        {
+            Debug.Log("YOU LOST");
+            return;
+        }
+
+        if (_combatstate == combatState.Win)
+        {
+            Debug.Log("YOU WON");
+            return;
+        }
+
+        if (_combatstate == combatState.Start)
+        {
+            SetUpBattle();
+            _combatstate = combatState.HerosTurn;
+            return;
+        }
+
+        if (_combatstate == combatState.HerosTurn)
+        {
+            if (heroIsAttacking)
+            {
+                return;
+            }
+            if(hero1.alreadyAttacked == false)
+            {
+                StartCoroutine(AttackEnemy(hero1));
+                return;
+            }
+
+            if (hero2.alreadyAttacked == false)
+            {
+
+                StartCoroutine(AttackEnemy(hero2));
+                return;
+            }
+
+            if (hero3.alreadyAttacked == false)
+            {
+
+                StartCoroutine(AttackEnemy(hero3));
+                return;
+            }
+
+            _combatstate = combatState.EnemysTurn;
+            hero1.alreadyAttacked = false;
+            hero2.alreadyAttacked = false;
+            hero3.alreadyAttacked = false;
+
+        }
+
+        if (_combatstate == combatState.EnemysTurn)
+        {
+            if (enemyIsAttacking)
+            {
+                return;
+            }
+            if (enemy1.alreadyAttacked == false)
+            {
+                StartCoroutine(AttackHero(enemy1));
+                return;
+            }
+
+            if (enemy2.alreadyAttacked == false)
+            {
+
+                StartCoroutine(AttackHero(enemy2));
+                return;
+            }
+
+            if (enemy3.alreadyAttacked == false)
+            {
+
+                StartCoroutine(AttackHero(enemy3));
+                return;
+            }
+
+            _combatstate = combatState.HerosTurn;
+            enemy1.alreadyAttacked = false;
+            enemy2.alreadyAttacked = false;
+            enemy3.alreadyAttacked = false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    public void SetUpBattle()
+    {
         
+        int random = Random.Range(0, EnemyPrefabs.Count);
+        enemy1 = Instantiate(EnemyPrefabs[random]).GetComponent<EnemyBase>();
+        enemy1.transform.position = new Vector3(hero1.transform.position.x+5, hero1.transform.position.y, 0);
+        random = Random.Range(0, EnemyPrefabs.Count);
+        enemy2 = Instantiate(EnemyPrefabs[random]).GetComponent<EnemyBase>();
+        enemy2.transform.position = new Vector3(hero2.transform.position.x+5, hero2.transform.position.y, 0);
+        random = Random.Range(0, EnemyPrefabs.Count);
+        enemy3 = Instantiate(EnemyPrefabs[random]).GetComponent<EnemyBase>();
+        enemy3.transform.position = new Vector3(hero3.transform.position.x + 5, hero3.transform.position.y, 0);
+
+        _combatstate = combatState.HerosTurn;
+    }
 
 
+    IEnumerator AttackEnemy(HeroBase hb)
+    {
+        heroIsAttacking = true;
+        hb.alreadyAttacked = true;
+        hb.PlayAttack();
+        yield return new WaitForSeconds(1f);
+        heroIsAttacking = false;
+    }
 
+    IEnumerator AttackHero(EnemyBase eb)
+    {
+        enemyIsAttacking = true;
+        eb.alreadyAttacked = true;
+        eb.PlayAttack();
+        yield return new WaitForSeconds(1f);
+        enemyIsAttacking = false;
 
+    }
 
+    public void CheckEnemiesAlive()
+    {
 
-
-
-
-
-
-
+    }
+    public void NextTurn()
+    {
 
     }
 
@@ -91,12 +240,11 @@ public class GameManager : MonoBehaviour
         PlayHeroAnim(hero1, "Idle");
         PlayHeroAnim(hero2, "Idle");
         PlayHeroAnim(hero3, "Idle");
+        _gamestate = gameState.Fight;
+        _combatstate = combatState.Start;
     }
 
-    public void CreateEnemies()
-    {
-
-    }
+    
 
     public void HealParty()
     {
