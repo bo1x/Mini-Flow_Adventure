@@ -6,7 +6,7 @@ public class HeroBase : MonoBehaviour
 {
    [SerializeField] public string Name;
    [SerializeField] public int MaxHP;
-   private int actualHP;
+   public int actualHP;
    [SerializeField] public int Damage;
 
     [SerializeField] private HPBarLogic hpbar;
@@ -19,7 +19,7 @@ public class HeroBase : MonoBehaviour
     public void TakeDamage(int DamageAmount)
     {
         int newHPvalue = actualHP - DamageAmount;
-        if (newHPvalue < 0)
+        if (newHPvalue > 0)
         {
             hpbar.SetHealth(newHPvalue);
             actualHP = newHPvalue;

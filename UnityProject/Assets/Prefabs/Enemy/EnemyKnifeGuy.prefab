@@ -94,6 +94,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2515588224030856626, guid: fc574ecc8b5a06a4ca099982a2229ec4, type: 3}
+      propertyPath: MaxHP
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2907194707841062011, guid: fc574ecc8b5a06a4ca099982a2229ec4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.08
@@ -136,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4197651086337281736, guid: fc574ecc8b5a06a4ca099982a2229ec4, type: 3}
       propertyPath: m_Name
-      value: EnemyBase Variant Variant
+      value: EnemyKnifeGuy
       objectReference: {fileID: 0}
     - target: {fileID: 5781773789320379750, guid: fc574ecc8b5a06a4ca099982a2229ec4, type: 3}
       propertyPath: m_AnchorMax.x

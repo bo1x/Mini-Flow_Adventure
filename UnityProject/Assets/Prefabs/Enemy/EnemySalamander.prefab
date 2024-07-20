@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8306097549697377911, guid: 446ee5d575139ee4191456be1c5a1a2c, type: 3}
       propertyPath: m_Name
-      value: EnemyBase Variant Variant
+      value: EnemySalamander
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

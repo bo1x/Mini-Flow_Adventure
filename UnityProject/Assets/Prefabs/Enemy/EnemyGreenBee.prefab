@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 5678816698476607595}
     - target: {fileID: 2031886449685539021, guid: f5ae5ffc4d94b8d438e5f81a0556da49, type: 3}
       propertyPath: MaxHP
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2031886449685539021, guid: f5ae5ffc4d94b8d438e5f81a0556da49, type: 3}
       propertyPath: hpbar

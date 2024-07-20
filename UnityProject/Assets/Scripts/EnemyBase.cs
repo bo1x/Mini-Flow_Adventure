@@ -6,7 +6,7 @@ public class EnemyBase : MonoBehaviour
 {
     [SerializeField] public string Name;
     [SerializeField] public int MaxHP;
-    private int actualHP;
+    public int actualHP;
     [SerializeField] public int Damage;
 
     [SerializeField] private HPBarLogic hpbar;
@@ -20,13 +20,14 @@ public class EnemyBase : MonoBehaviour
     public void TakeDamage(int DamageAmount)
     {
         int newHPvalue = actualHP - DamageAmount;
-        if (newHPvalue < 0)
+        if (newHPvalue > 0)
         {
             hpbar.SetHealth(newHPvalue);
             actualHP = newHPvalue;
         }
         else
         {
+            actualHP = 0;
             Dead();
         }
     }
@@ -57,6 +58,7 @@ public class EnemyBase : MonoBehaviour
     public void Dead()
     {
         Debug.Log("monster died");
+        
     }
 
     public void PlayAttack()
