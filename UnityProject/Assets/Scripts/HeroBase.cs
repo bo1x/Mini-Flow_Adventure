@@ -24,6 +24,7 @@ public class HeroBase : MonoBehaviour
         {
             hpbar.SetHealth(newHPvalue);
             actualHP = newHPvalue;
+            NPCsounds.instance.PlayerLoseHP();
         }
         else
         {
@@ -38,6 +39,7 @@ public class HeroBase : MonoBehaviour
         if (newHPvalue >= MaxHP)
         {
             actualHP = MaxHP;
+            NPCsounds.instance.PlayHealSound();
         }
         else
         {
@@ -65,12 +67,14 @@ public class HeroBase : MonoBehaviour
 
     public void Dead()
     {
+        NPCsounds.instance.DeadSound();
         Debug.Log("hero died");
     }
 
     public void PlayAttack()
     {
         anim.Play("Attack");
+        NPCsounds.instance.PlayerAttack();
     }
 
     public void PlayWalk()

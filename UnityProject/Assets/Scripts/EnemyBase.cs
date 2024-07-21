@@ -24,6 +24,7 @@ public class EnemyBase : MonoBehaviour
         {
             hpbar.SetHealth(newHPvalue);
             actualHP = newHPvalue;
+            NPCsounds.instance.MOBLOSEHP();
         }
         else
         {
@@ -67,12 +68,14 @@ public class EnemyBase : MonoBehaviour
 
     public void Dead()
     {
-        
+        NPCsounds.instance.DeadSound();
+
     }
 
     public void PlayAttack()
     {
         anim.Play("EnemyAttack");
+        NPCsounds.instance.MobAttack();
     }
 
 

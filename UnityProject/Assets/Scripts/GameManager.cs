@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyBase enemy3;
 
     [SerializeField] private int flowBar;
+    private int lastFlow = 0;
     [SerializeField] private FlowBarController fbc;
 
     private int dificulty = 0;
@@ -41,6 +43,23 @@ public class GameManager : MonoBehaviour
     public bool SkipHeroesTurn = false;
     public bool SkipEnemiesTurn = false;
     public bool PACTwithTheDevil = false;
+
+
+    //CanvasRefs
+
+    [SerializeField] public GameObject scrool;
+    [SerializeField] public GameObject description;
+    [SerializeField] public GameObject option1;
+    [SerializeField] public GameObject option2;
+    [SerializeField] public List<EventScriptable> _events =  new List<EventScriptable>();
+    private EventScriptable myEvent;
+
+
+    [SerializeField] public GameObject flowbar;
+    [SerializeField] public GameObject skills;
+
+
+
 
     public static GameManager instance;
 
@@ -69,13 +88,14 @@ public class GameManager : MonoBehaviour
         heroesAlive.Add(hero1);
         heroesAlive.Add(hero2);
         heroesAlive.Add(hero3);
-        flowBar = 5;
-        UpdateFlowBar();
+        flowBar = 50;
+        
+        Music.instance.PlayDangerMusic();
     }
     public void Start()
     {
-        
-        
+
+        UpdateFlowBar();
         UpdateAllHPbars();
 
         
@@ -104,7 +124,20 @@ public class GameManager : MonoBehaviour
                     {
                         lastPointOfInterest = pointsInterest.IndexOf(item);
                         ChangeGameState(gameState.ReadingQuest);
-                        ScrollEvent();
+                       
+
+                        if (lastPointOfInterest == pointsInterest.Count-1)
+                        {
+                            
+
+                            BossBattle();
+                                    
+
+                        }
+                        else
+                        {
+                            ScrollEvent();
+                        }
                     }
                 }
             }
@@ -226,34 +259,23 @@ public class GameManager : MonoBehaviour
     {
         dificulty += 1;
 
-        if (dificulty != 4)
+
+        foreach (var hero in heroesAlive)
         {
-            foreach (var hero in heroesAlive)
-            {
-                int random = Random.Range(0, EnemyPrefabs.Count);
-                EnemyBase eb = Instantiate(EnemyPrefabs[random]).GetComponent<EnemyBase>();
-                eb.transform.position = new Vector3(hero.transform.position.x + 5, hero.transform.position.y, 0);
-                enemiesAlive.Add(eb);
+            int random = Random.Range(0, EnemyPrefabs.Count);
+            EnemyBase eb = Instantiate(EnemyPrefabs[random]).GetComponent<EnemyBase>();
+            eb.transform.position = new Vector3(hero.transform.position.x + 5, hero.transform.position.y, 0);
+            enemiesAlive.Add(eb);
 
-            }
-
-            foreach (var enemy in enemiesAlive)
-            {
-                enemy.SetMaxHP(5 * dificulty);
-                enemy.SetDamage(1 * dificulty);
-            }
-
-            _combatstate = combatState.HerosTurn;
         }
-        else
+
+        foreach (var enemy in enemiesAlive)
         {
-            bossspawned = true;
-            enemiesAlive.Add(Instantiate(EnemyBoss[0]).GetComponent<EnemyBase>());
-            enemiesAlive[0].transform.position = new Vector3(heroesAlive[0].transform.position.x + 5, 0, 0);
-            enemiesAlive[0].SetMaxHP(100);
-            enemiesAlive[0].SetDamage(10);
-            _combatstate = combatState.HerosTurn;
+            enemy.SetMaxHP(5 * dificulty);
+            enemy.SetDamage(1 * dificulty);
         }
+
+        _combatstate = combatState.HerosTurn;
         
     }
 
@@ -300,7 +322,7 @@ public class GameManager : MonoBehaviour
 
         if (enemiesAlive[random].actualHP<=0)
         {
-            flowBar -= 2;
+            flowBar -= 5;
             UpdateFlowBar();
             Destroy(enemiesAlive[random].gameObject);
             enemiesAlive.RemoveAt(random);  
@@ -353,14 +375,14 @@ public class GameManager : MonoBehaviour
 
         if (heroesAlive[random].actualHP <= 0)
         {
-            flowBar += 5;
+            flowBar += 35;
             UpdateFlowBar();
             Destroy(heroesAlive[random].gameObject);
             heroesAlive.RemoveAt(random);
         }
         else
         {
-            flowBar += 1;
+            flowBar += 5;
             UpdateFlowBar();
         }
         yield return new WaitForSeconds(1f);
@@ -373,13 +395,20 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void CheckEnemiesAlive()
+
+    public void BossBattle()
     {
 
-    }
-    public void NextTurn()
-    {
+        Music.instance.PlayBossMusic();
 
+        _gamestate = gameState.Fight;
+        _combatstate = combatState.Start;
+        bossspawned = true;
+        enemiesAlive.Add(Instantiate(EnemyBoss[0]).GetComponent<EnemyBase>());
+        enemiesAlive[0].transform.position = new Vector3(heroesAlive[0].transform.position.x + 5, 0, 0);
+        enemiesAlive[0].SetMaxHP(250);
+        enemiesAlive[0].SetDamage(5);
+        _combatstate = combatState.HerosTurn;
     }
 
     public void ScrollEvent()
@@ -388,17 +417,18 @@ public class GameManager : MonoBehaviour
         {
             hero.PlayIdle();
         }
-        _gamestate = gameState.Fight;
-        _combatstate = combatState.Start;
+        HideUIShowScroll();
+        assignNewEvent();
+
     }
 
-    
-
-    
-
-    public void Meteor()
+    public void assignNewEvent()
     {
-
+        int randomEvent = Random.Range(0, _events.Count);
+        myEvent = _events[randomEvent];
+        description.GetComponent<TextMeshProUGUI>().text = myEvent.Description;
+        option1.GetComponent<TextMeshProUGUI>().text = myEvent.option1;
+        option2.GetComponent<TextMeshProUGUI>().text = myEvent.option2;
     }
 
     public void UpdateAllHPbars()
@@ -434,10 +464,19 @@ public class GameManager : MonoBehaviour
 
     public void UpdateFlowBar()
     {
-        if (flowBar > 10)
+        if (flowBar<lastFlow)
+        {
+            NPCsounds.instance.FlowBarDecrease();
+        }
+        else
+        {
+            NPCsounds.instance.FlowBarIncrease();
+        }
+        lastFlow = flowBar;
+        if (flowBar > 100)
         {
             Debug.Log("GAME IS TOO DIFFICULT");
-            flowBar = 10;
+            flowBar = 100;
         }
         if (flowBar<0)
         {
@@ -476,14 +515,14 @@ public class GameManager : MonoBehaviour
                 hero.TakeDamage(dmg);
                 if (hero.actualHP <= 0)
                 {
-                    flowBar += 5;
+                    flowBar += 35;
                     UpdateFlowBar();
                     deadhero.Add(hero);
                     
                 }
                 else
                 {
-                    flowBar += 1;
+                    flowBar += 10;
                     UpdateFlowBar();
                 }
             }
@@ -503,13 +542,13 @@ public class GameManager : MonoBehaviour
                 enemy.TakeDamage(dmg);
                 if (enemy.actualHP <= 0)
                 {
-                    flowBar += 5;
+                    flowBar -= 15;
                     UpdateFlowBar();
                     deadEnemy.Add(enemy);
                 }
                 else
                 {
-                    flowBar += 1;
+                    flowBar -= 5;
                     UpdateFlowBar();
                 }
             }
@@ -531,7 +570,7 @@ public class GameManager : MonoBehaviour
         {
             if (Vector3.Distance(hero.gameObject.transform.position, pos) < radius)
             {
-                flowBar -= 1;
+                flowBar -= 3;
                 hero.Heal(heal);
             }
         }
@@ -541,11 +580,46 @@ public class GameManager : MonoBehaviour
         {
             if (Vector3.Distance(enemy.gameObject.transform.position, pos) < radius)
             {
-                flowBar += 1;
+                flowBar += 3;
                 enemy.Heal(heal);
             }
         }
+        UpdateFlowBar();
+    }
+
+    public void HideUIShowScroll()
+    {
+        scrool.SetActive(true);
+        flowbar.SetActive(false);
+        skills.SetActive(false);
 
     }
 
+    public void HideScroolShowUI()
+    {
+        scrool.SetActive(false);
+        flowbar.SetActive(true);
+        skills.SetActive(true);
+
+    }
+
+    public void Option1Click()
+    {
+        HideScroolShowUI();
+        scrool.SetActive(false);
+        _gamestate = gameState.Fight;
+        _combatstate = combatState.Start;
+
+        flowBar += 30;
+        UpdateFlowBar();
+    }
+
+    public void Option2Click()
+    {
+        HideScroolShowUI();
+        scrool.SetActive(false);
+        flowBar -= 30;
+        UpdateFlowBar();
+        _gamestate = gameState.Walking;
+    }
 }

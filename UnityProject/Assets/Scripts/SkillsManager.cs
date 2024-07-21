@@ -65,6 +65,12 @@ public class SkillsManager : MonoBehaviour
         go.GetComponent<Image>().color = new Color(1f, 1f, 1f);
         go.SetActive(false);
         yield return new WaitForSeconds(time);
+
+        while (!go.transform.parent.gameObject.activeSelf)
+        {
+            Debug.Log("parent not active");
+        }
+        
         go.SetActive(true);
     }
 
@@ -74,14 +80,13 @@ public class SkillsManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("FireBall");
+                clickToFireball = false;
                 Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mouseWorldPos.z = 0;
-                clickToFireball = false;
                 GameObject go =  Instantiate(fireballGO,mouseWorldPos,Quaternion.identity);
                 go.transform.localScale = Vector3.one*fireballRadius;
                 GameManager.instance.CheckIfInsideRadiusDamage(mouseWorldPos, fireballRadius, fireballDMG);
-                Destroy(go, 2f);
+                Destroy(go, 0.40f);
             }
         }
 

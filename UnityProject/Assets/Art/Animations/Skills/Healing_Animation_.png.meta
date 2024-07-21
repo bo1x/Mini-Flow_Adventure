@@ -1,0 +1,491 @@
+fileFormatVersion: 2
+guid: 45970dddd4d54054fade26b6bfca9f90
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7762993869148035773
+    second: Healing_Animation__0
+  - first:
+      213: 5917786465511993555
+    second: Healing_Animation__1
+  - first:
+      213: -6851072680803474766
+    second: Healing_Animation__2
+  - first:
+      213: 7635756998532361651
+    second: Healing_Animation__3
+  - first:
+      213: 3091545765371701642
+    second: Healing_Animation__4
+  - first:
+      213: -3925366779200401133
+    second: Healing_Animation__5
+  - first:
+      213: 7897243808010885480
+    second: Healing_Animation__6
+  - first:
+      213: -8593099809597552839
+    second: Healing_Animation__7
+  - first:
+      213: 7951833541189798642
+    second: Healing_Animation__8
+  - first:
+      213: 2278630827378405094
+    second: Healing_Animation__9
+  - first:
+      213: 8481633423228714393
+    second: Healing_Animation__10
+  - first:
+      213: 5690469757461031540
+    second: Healing_Animation__11
+  - first:
+      213: -1886270373535558541
+    second: Healing_Animation__12
+  - first:
+      213: 5649492629968085391
+    second: Healing_Animation__13
+  - first:
+      213: 8223159687242432347
+    second: Healing_Animation__14
+  - first:
+      213: 2263243228864228376
+    second: Healing_Animation__15
+  - first:
+      213: -4179503250214144939
+    second: Healing_Animation__16
+  - first:
+      213: 1904514481285227597
+    second: Healing_Animation__17
+  - first:
+      213: -2514950421544572894
+    second: Healing_Animation__18
+  - first:
+      213: 4118343182021305836
+    second: Healing_Animation__19
+  - first:
+      213: 2328972460610261765
+    second: Healing_Animation__20
+  - first:
+      213: 1658242522406406992
+    second: Healing_Animation__21
+  - first:
+      213: 1150428251597615478
+    second: Healing_Animation__22
+  - first:
+      213: -402454154789587043
+    second: Healing_Animation__23
+  - first:
+      213: -7978676777509008966
+    second: Healing_Animation__24
+  - first:
+      213: 4012997062982835022
+    second: Healing_Animation__25
+  - first:
+      213: -2537008855485013385
+    second: Healing_Animation__26
+  - first:
+      213: 6708706063303056463
+    second: Healing_Animation__27
+  - first:
+      213: -6612294745407588545
+    second: Healing_Animation__28
+  - first:
+      213: 5990703268863488847
+    second: Healing_Animation__29
+  - first:
+      213: -5477243754745543567
+    second: Healing_Animation__30
+  - first:
+      213: 2119725026136663321
+    second: Healing_Animation__31
+  - first:
+      213: 5027446750128431775
+    second: Healing_Animation__32
+  - first:
+      213: -6205782758849934239
+    second: Healing_Animation__33
+  - first:
+      213: 2754922811906511873
+    second: Healing_Animation__34
+  - first:
+      213: 4102892728637478463
+    second: Healing_Animation__35
+  - first:
+      213: -1917204436263652421
+    second: Healing_Animation__36
+  - first:
+      213: -6334331791583222576
+    second: Healing_Animation__37
+  - first:
+      213: -4961736753722541565
+    second: Healing_Animation__38
+  - first:
+      213: -7665810532331161540
+    second: Healing_Animation__39
+  - first:
+      213: 8033303206118341050
+    second: Healing_Animation__40
+  - first:
+      213: 7869861988108390701
+    second: Healing_Animation__41
+  - first:
+      213: -5210131189132422071
+    second: Healing_Animation__42
+  - first:
+      213: 4228324696337667800
+    second: Healing_Animation__43
+  - first:
+      213: 1793139266181224017
+    second: Healing_Animation__44
+  - first:
+      213: -7046161812259832112
+    second: Healing_Animation__45
+  - first:
+      213: 4431693361376896931
+    second: Healing_Animation__46
+  - first:
+      213: -2252180935353464012
+    second: Healing_Animation__47
+  - first:
+      213: -1049124061862430608
+    second: Healing_Animation__48
+  - first:
+      213: 3224224936030343704
+    second: Healing_Animation__49
+  - first:
+      213: 2638564366521264223
+    second: Healing_Animation__50
+  - first:
+      213: 7046773030969515021
+    second: Healing_Animation__51
+  - first:
+      213: -9209826136368337846
+    second: Healing_Animation__52
+  - first:
+      213: 6453520945428140468
+    second: Healing_Animation__53
+  - first:
+      213: 3499705383589168443
+    second: Healing_Animation__54
+  - first:
+      213: -8693769649392103964
+    second: Healing_Animation__55
+  - first:
+      213: 6484459623966524801
+    second: Healing_Animation__56
+  - first:
+      213: -3938483879188615920
+    second: Healing_Animation__57
+  - first:
+      213: 5235212883717323037
+    second: Healing_Animation__58
+  - first:
+      213: -8265908395875263660
+    second: Healing_Animation__59
+  - first:
+      213: 2272005744153446097
+    second: Healing_Animation__60
+  - first:
+      213: -229706172293305195
+    second: Healing_Animation__61
+  - first:
+      213: 5133880584593851977
+    second: Healing_Animation__62
+  - first:
+      213: -7662108683765312250
+    second: Healing_Animation__63
+  - first:
+      213: 4366840081283492744
+    second: Healing_Animation__64
+  - first:
+      213: -5169840173791319718
+    second: Healing_Animation__65
+  - first:
+      213: -8184293231477641471
+    second: Healing_Animation__66
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Healing_Animation__0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 108
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dba9a1c3bc1bbbb60800000000000000
+      internalID: 7762993869148035773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Healing_Animation__1
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 108
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d0f475cf63302250800000000000000
+      internalID: 5917786465511993555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Healing_Animation__2
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 108
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b2635202b91ce0a0800000000000000
+      internalID: -6851072680803474766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Healing_Animation__3
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 0
+        width: 108
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bd69b0c888a7f960800000000000000
+      internalID: 7635756998532361651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Healing_Animation__4
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 0
+        width: 108
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a89e7df6e7067ea20800000000000000
+      internalID: 3091545765371701642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Healing_Animation__5
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 0
+        width: 108
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31114a836bb4689c0800000000000000
+      internalID: -3925366779200401133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Healing_Animation__6
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 0
+        width: 108
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8695429e665a89d60800000000000000
+      internalID: 7897243808010885480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Healing_Animation__7
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 0
+        width: 108
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9370679504d2fb880800000000000000
+      internalID: -8593099809597552839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 522b4baedb9991142bdf05e0ac364385
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Healing_Animation__0: 7762993869148035773
+      Healing_Animation__1: 5917786465511993555
+      Healing_Animation__2: -6851072680803474766
+      Healing_Animation__3: 7635756998532361651
+      Healing_Animation__4: 3091545765371701642
+      Healing_Animation__5: -3925366779200401133
+      Healing_Animation__6: 7897243808010885480
+      Healing_Animation__7: -8593099809597552839
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

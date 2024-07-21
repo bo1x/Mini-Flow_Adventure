@@ -12,10 +12,13 @@ public class FlowBarController : MonoBehaviour
     public bool firstTime = true;
     public bool isLastCounterLow = false;
 
-    
+    private void Awake()
+    {
+        slider.maxValue = 100;
+    }
     public void SetFlow(int Value)
     {
-        if (Value<3)
+        if (Value<30)
         {
             if (firstTime)
             {
@@ -37,7 +40,7 @@ public class FlowBarController : MonoBehaviour
             
         }
 
-        if (Value > 7)
+        if (Value > 70)
         {
             if (firstTime)
             {
