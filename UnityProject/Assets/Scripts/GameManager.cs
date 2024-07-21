@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         heroesAlive.Add(hero2);
         heroesAlive.Add(hero3);
         flowBar = 5;
-
+        UpdateFlowBar();
     }
     public void Start()
     {
@@ -531,7 +531,7 @@ public class GameManager : MonoBehaviour
         {
             if (Vector3.Distance(hero.gameObject.transform.position, pos) < radius)
             {
-
+                flowBar -= 1;
                 hero.Heal(heal);
             }
         }
@@ -541,6 +541,7 @@ public class GameManager : MonoBehaviour
         {
             if (Vector3.Distance(enemy.gameObject.transform.position, pos) < radius)
             {
+                flowBar += 1;
                 enemy.Heal(heal);
             }
         }

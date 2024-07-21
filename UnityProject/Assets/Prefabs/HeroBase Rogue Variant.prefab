@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: Damage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7113614924010708476, guid: c207a9cb66ada3946a1347f49e465d8a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7fa20b7342a94c54b9cd796df27d885a, type: 2}
     - target: {fileID: 8693699524356944889, guid: c207a9cb66ada3946a1347f49e465d8a, type: 3}
       propertyPath: m_FlipX
       value: 1

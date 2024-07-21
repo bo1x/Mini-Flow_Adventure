@@ -17015,8 +17015,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireballGO: {fileID: 6501541086282831027, guid: d5be14ba4d101844ba61d6f777ac802a, type: 3}
-  fireballDMG: 100
+  fireballDMG: 8
   fireballRadius: 2
+  healGO: {fileID: 6501541086282831027, guid: c2a85f2738b46ef48ac2a31027ad9d86, type: 3}
+  healAmount: 2
+  healRadius: 5
+  healTicks: 5
+  healtime: 0.5
 --- !u!1 &2048757424
 GameObject:
   m_ObjectHideFlags: 0

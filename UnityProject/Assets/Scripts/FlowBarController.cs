@@ -11,6 +11,8 @@ public class FlowBarController : MonoBehaviour
     public int RageQuit = 0;
     public bool firstTime = true;
     public bool isLastCounterLow = false;
+
+    
     public void SetFlow(int Value)
     {
         if (Value<3)
