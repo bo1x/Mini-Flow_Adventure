@@ -128,7 +128,6 @@ public class GameManager : MonoBehaviour
     {
         if (_combatstate == combatState.Lost)
         {
-            Debug.Log("YOU LOST");
             return;
         }
 
@@ -250,7 +249,7 @@ public class GameManager : MonoBehaviour
         {
             bossspawned = true;
             enemiesAlive.Add(Instantiate(EnemyBoss[0]).GetComponent<EnemyBase>());
-            enemiesAlive[0].transform.position = new Vector3(hero2.transform.position.x + 5, 0, 0);
+            enemiesAlive[0].transform.position = new Vector3(heroesAlive[0].transform.position.x + 5, 0, 0);
             enemiesAlive[0].SetMaxHP(100);
             enemiesAlive[0].SetDamage(10);
             _combatstate = combatState.HerosTurn;
@@ -261,6 +260,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator AttackEnemy(HeroBase hb)
     {
+        
         if (enemiesAlive.Count == 0)
         {
             _combatstate = combatState.Win;
@@ -274,6 +274,20 @@ public class GameManager : MonoBehaviour
         hb.alreadyAttacked = true;
         hb.PlayAttack();
         int random = Random.Range(0, enemiesAlive.Count);
+        if (enemiesAlive.Count <= random)
+        {
+            heroIsAttacking = false;
+            if (enemiesAlive.Count == 0)
+            {
+                _combatstate = combatState.Win;
+
+                if (bossspawned)
+                {
+                    _gamestate = gameState.bossKilled;
+                }
+            }
+            yield break;
+        }
         if (PACTwithTheDevil)
         {
             enemiesAlive[random].TakeDamage(hb.Damage*3);
@@ -308,6 +322,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator AttackHero(EnemyBase eb)
     {
+        
         if(heroesAlive.Count == 0)
         {
           _combatstate = combatState.Lost;
@@ -316,7 +331,16 @@ public class GameManager : MonoBehaviour
         eb.alreadyAttacked = true;
         eb.PlayAttack();
         int random = Random.Range(0, enemiesAlive.Count);
-
+        if (heroesAlive.Count <= random)
+        {
+            enemyIsAttacking = false;
+            if (heroesAlive.Count == 0)
+            {
+                PACTwithTheDevil = false;
+                _combatstate = combatState.Lost;
+            }
+            yield break;
+        }
         if (PACTwithTheDevil)
         {
             heroesAlive[random].TakeDamage(eb.Damage * 2);
@@ -360,7 +384,6 @@ public class GameManager : MonoBehaviour
 
     public void ScrollEvent()
     {
-        Debug.Log("event");
         foreach (var hero in heroesAlive)
         {
             hero.PlayIdle();

@@ -8,13 +8,24 @@ public class SkillsManager : MonoBehaviour
     [SerializeField] private int fireballDMG;
     [SerializeField] private float fireballRadius;
     private bool clickToFireball = false;
+
+
+    [SerializeField] private GameObject healGO;
+    [SerializeField] private int healAmount;
+    [SerializeField] private float healRadius;
+    [SerializeField] private int healTicks;
+    [SerializeField] private float healtime;
+    private bool clickforHeal = false;
     public void FireBall(GameObject go)
     {
         clickToFireball = true;
         StartCoroutine(HideCard(go, 1f));
-
-        
-        
+ 
+    }
+    public void Heal(GameObject go)
+    {
+        clickforHeal = true;
+        StartCoroutine(HideCard(go, 6f));
     }
 
     public void PactWithDevil(GameObject go)
@@ -24,10 +35,7 @@ public class SkillsManager : MonoBehaviour
         StartCoroutine(HideCard(go,20f));
     }
 
-    public void Heal(GameObject go)
-    {
-        StartCoroutine(HideCard(go, 6f));
-    }
+
 
     public void MakeCamp(GameObject go)
     {
@@ -74,6 +82,32 @@ public class SkillsManager : MonoBehaviour
                 Destroy(go, 2f);
             }
         }
-        
+
+        if (clickforHeal)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Heal");
+                Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mouseWorldPos.z = 0;
+                clickforHeal = false;
+                StartCoroutine(spawnHealAreaTick(mouseWorldPos, healTicks));
+            }
+        }
+
+    }
+
+    IEnumerator spawnHealAreaTick(Vector3 pos,int ticks)
+    {
+        for (int i = 0; i < ticks; i++)
+        {
+            GameObject go = Instantiate(healGO, pos, Quaternion.identity);
+            go.transform.localScale = Vector3.one * healRadius;
+            GameManager.instance.CheckIfInsideRadiusHeal(pos, healRadius, healAmount);
+            Destroy(go, healtime/4*3);
+
+            yield return new WaitForSeconds(healtime);
+        }
+
     }
 }

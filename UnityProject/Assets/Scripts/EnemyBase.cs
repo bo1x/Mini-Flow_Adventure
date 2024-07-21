@@ -49,7 +49,6 @@ public class EnemyBase : MonoBehaviour
 
     public void updateHPBAR()
     {
-        Debug.Log(actualHP);
         hpbar.SetHealth(actualHP);
     }
 
@@ -68,7 +67,6 @@ public class EnemyBase : MonoBehaviour
 
     public void Dead()
     {
-        Debug.Log("monster died");
         
     }
 

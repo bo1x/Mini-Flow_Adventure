@@ -58,7 +58,6 @@ public class HeroBase : MonoBehaviour
 
     public void updateHPBAR()
     {
-        Debug.Log(actualHP);
         hpbar.SetHealth(actualHP);
     }
 
