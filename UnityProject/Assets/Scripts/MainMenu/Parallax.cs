@@ -18,7 +18,7 @@ public class Parallax : MonoBehaviour
     private void Update()
     {
         Vector2 offset = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        if (offset != null && offset.y != float.NaN && offset.x != float.NaN)
+        if (offset != null && !float.IsNaN(offset.y) && !float.IsNaN(offset.x))
         {
 
            transform.position = Vector3.SmoothDamp(transform.position, startPosition + (offset * offsetMultiplier), ref velocity, smoothTime);
