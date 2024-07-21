@@ -44,37 +44,33 @@ public class SkillsManager : MonoBehaviour
         if(GameManager.instance._gamestate == GameManager.gameState.ReadingQuest) { return; }
         if(GameManager.instance._gamestate == GameManager.gameState.bossKilled) { return; }
         GameManager.instance.MakeCamp();
-        StartCoroutine(HideCard(go, 20f));
+        StartCoroutine(HideCard(go, 15f));
     }
 
     public void SkipHeroesTurn(GameObject go)
     {
         GameManager.instance.SkipHeroesTurn = true;
-        StartCoroutine(HideCard(go, 10f));
+        StartCoroutine(HideCard(go, 12f));
 
     }
 
     public void SkipEnemyTurn(GameObject go)
     {
         GameManager.instance.SkipEnemiesTurn = true;
-        StartCoroutine(HideCard(go, 14f));
+        StartCoroutine(HideCard(go, 7f));
     }
 
     IEnumerator HideCard(GameObject go,float time)
     {
         go.GetComponent<Image>().color = new Color(1f, 1f, 1f);
         go.SetActive(false);
-        Debug.Log("Before yield return");
         yield return new WaitForSeconds(time);
-        Debug.Log("beforewhile");
 
         while (!go.transform.parent.gameObject.activeSelf)
         {
-            Debug.Log("while");
 
             yield return new WaitForSeconds(time);
         }
-        Debug.Log("active");
         
         go.SetActive(true);
     }

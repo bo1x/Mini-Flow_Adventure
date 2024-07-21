@@ -11,6 +11,9 @@ public class Music : MonoBehaviour
     [SerializeField] private AudioSource danger;
     [SerializeField] private AudioSource menu;
 
+    [SerializeField] private AudioSource Win;
+    [SerializeField] private AudioSource Lose;
+
     private void Awake()
     {
         if (instance == null)
@@ -100,5 +103,23 @@ public class Music : MonoBehaviour
         StartCoroutine(FadeIn(menu, 2.5f));
     }
 
+    public void PlayWinMusic()
+    {
+        StartCoroutine(FadeOut(danger, 0.5f));
+        StartCoroutine(FadeOut(boss, 0.5f));
+        StartCoroutine(FadeOut(chill, 0.5f));
+        StartCoroutine(FadeOut(menu, 0.5f));
 
+        StartCoroutine(FadeIn(Win, 1f));
+    }
+
+    public void PlayLoseMusic()
+    {
+        StartCoroutine(FadeOut(danger, 0.5f));
+        StartCoroutine(FadeOut(boss, 0.5f));
+        StartCoroutine(FadeOut(chill, 0.5f));
+        StartCoroutine(FadeOut(menu, 0.5f));
+
+        StartCoroutine(FadeIn(Lose, 1f));
+    }
 }

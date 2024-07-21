@@ -104,10 +104,13 @@ public class GameManager : MonoBehaviour
     }
     public void Update()
     {
-
+        if (heroesAlive.Count == 0)
+        {
+            SceneManager.LoadScene("Lose");
+        }
         if(_gamestate == gameState.bossKilled)
         {
-            Debug.Log("WE WIN");
+            SceneManager.LoadScene("WIN");
         }
 
         if(_gamestate == gameState.Walking)
@@ -162,6 +165,7 @@ public class GameManager : MonoBehaviour
     {
         if (_combatstate == combatState.Lost)
         {
+            SceneManager.LoadScene("Lose");
             return;
         }
 
@@ -323,12 +327,18 @@ public class GameManager : MonoBehaviour
 
         if (enemiesAlive[random].actualHP<=0)
         {
-            flowBar -= 5;
+            flowBar -= 10;
             UpdateFlowBar();
             Destroy(enemiesAlive[random].gameObject);
             enemiesAlive.RemoveAt(random);  
         }
-        
+        else
+        {
+            flowBar -= 5;
+            UpdateFlowBar();
+
+        }
+
         yield return new WaitForSeconds(1f);
         heroIsAttacking = false;
         if (enemiesAlive.Count == 0)
@@ -353,7 +363,7 @@ public class GameManager : MonoBehaviour
         enemyIsAttacking = true;
         eb.alreadyAttacked = true;
         eb.PlayAttack();
-        int random = Random.Range(0, enemiesAlive.Count);
+        int random = Random.Range(0, heroesAlive.Count);
         if (heroesAlive.Count <= random)
         {
             enemyIsAttacking = false;
@@ -376,14 +386,21 @@ public class GameManager : MonoBehaviour
 
         if (heroesAlive[random].actualHP <= 0)
         {
-            flowBar += 35;
+            flowBar += 20;
             UpdateFlowBar();
             Destroy(heroesAlive[random].gameObject);
             heroesAlive.RemoveAt(random);
         }
         else
         {
-            flowBar += 5;
+            if (bossspawned)
+            {
+                flowBar += 35;
+            }
+            else
+            {
+                flowBar += 5;
+            }
             UpdateFlowBar();
         }
         yield return new WaitForSeconds(1f);
@@ -477,6 +494,7 @@ public class GameManager : MonoBehaviour
         if (flowBar > 100)
         {
             Debug.Log("GAME IS TOO DIFFICULT");
+            SceneManager.LoadScene("Lose");
             flowBar = 100;
         }
         if (flowBar<0)
@@ -501,6 +519,8 @@ public class GameManager : MonoBehaviour
             hero.Heal(hero.MaxHP);
         }
         _gamestate = gameState.Walking;
+        flowBar = 10;
+        UpdateFlowBar();
 
     }
 
@@ -516,7 +536,7 @@ public class GameManager : MonoBehaviour
                 hero.TakeDamage(dmg);
                 if (hero.actualHP <= 0)
                 {
-                    flowBar += 35;
+                    flowBar += 20;
                     UpdateFlowBar();
                     deadhero.Add(hero);
                     
