@@ -21,7 +21,8 @@ public class WinLoseBehabiur : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("Menu");
+        Debug.Log("CLICK");
+        SceneManager.LoadScene("MainMenu");
     }
 
     

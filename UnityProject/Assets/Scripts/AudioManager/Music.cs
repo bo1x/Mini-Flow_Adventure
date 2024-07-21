@@ -66,6 +66,8 @@ public class Music : MonoBehaviour
         StartCoroutine(FadeOut(chill, 0.5f));
         StartCoroutine(FadeOut(danger, 0.5f));
         StartCoroutine(FadeOut(menu, 0.5f));
+        StartCoroutine(FadeOut(Win, 0.5f));
+        StartCoroutine(FadeOut(Lose, 0.5f));
 
 
         // start game music
@@ -77,6 +79,8 @@ public class Music : MonoBehaviour
         StartCoroutine(FadeOut(chill, 0.5f));
         StartCoroutine(FadeOut(boss, 0.5f));
         StartCoroutine(FadeOut(menu, 0.5f));
+        StartCoroutine(FadeOut(Win, 0.5f));
+        StartCoroutine(FadeOut(Lose, 0.5f));
 
 
         // start game music
@@ -88,6 +92,8 @@ public class Music : MonoBehaviour
         StartCoroutine(FadeOut(danger, 0.5f));
         StartCoroutine(FadeOut(boss, 0.5f));
         StartCoroutine(FadeOut(menu, 0.5f));
+        StartCoroutine(FadeOut(Win, 0.5f));
+        StartCoroutine(FadeOut(Lose, 0.5f));
 
         // start game music
         StartCoroutine(FadeIn(chill, 2.5f));
@@ -98,6 +104,9 @@ public class Music : MonoBehaviour
         StartCoroutine(FadeOut(danger, 0.5f));
         StartCoroutine(FadeOut(boss, 0.5f));
         StartCoroutine(FadeOut(chill, 0.5f));
+        StartCoroutine(FadeOut(Win, 0.5f));
+        StartCoroutine(FadeOut(Lose, 0.5f));
+
 
         // start game music
         StartCoroutine(FadeIn(menu, 2.5f));
@@ -109,6 +118,8 @@ public class Music : MonoBehaviour
         StartCoroutine(FadeOut(boss, 0.5f));
         StartCoroutine(FadeOut(chill, 0.5f));
         StartCoroutine(FadeOut(menu, 0.5f));
+        StartCoroutine(FadeOut(Lose, 0.5f));
+
 
         StartCoroutine(FadeIn(Win, 1f));
     }
@@ -119,7 +130,10 @@ public class Music : MonoBehaviour
         StartCoroutine(FadeOut(boss, 0.5f));
         StartCoroutine(FadeOut(chill, 0.5f));
         StartCoroutine(FadeOut(menu, 0.5f));
+        StartCoroutine(FadeOut(Win, 0.5f));
 
         StartCoroutine(FadeIn(Lose, 1f));
+        
+
     }
 }
