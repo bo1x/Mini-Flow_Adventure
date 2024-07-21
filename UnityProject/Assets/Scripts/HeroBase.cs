@@ -15,6 +15,7 @@ public class HeroBase : MonoBehaviour
     public void Awake()
     {
         actualHP = MaxHP;
+        hpbar.SetBarMaxValue(MaxHP);
     }
     public void TakeDamage(int DamageAmount)
     {
@@ -26,6 +27,7 @@ public class HeroBase : MonoBehaviour
         }
         else
         {
+            actualHP = 0;
             Dead();
         }
     }

@@ -11,4 +11,9 @@ public class HPBarLogic : MonoBehaviour
         
         slider.value = Value;
     }
+
+    public void SetBarMaxValue(int value)
+    {
+        slider.maxValue = value;
+    }
 }

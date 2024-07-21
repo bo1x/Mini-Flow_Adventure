@@ -7,13 +7,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private HeroBase hero1;
     [SerializeField] private HeroBase hero2;
     [SerializeField] private HeroBase hero3;
-    [SerializeField] private gameState _gamestate;
+    [SerializeField] public gameState _gamestate;
     [SerializeField] private combatState _combatstate;
 
     [SerializeField] private GameObject HeroMove;
     //27.5
     [SerializeField] private List<float> pointsInterest;
     [SerializeField] private List<GameObject> EnemyPrefabs;
+    [SerializeField] private List<GameObject> EnemyBoss;
+    private bool bossspawned = false;
+    private bool bossdead = false;
     private float lastPointOfInterest = 0;
 
     private List<EnemyBase> enemiesAlive = new List<EnemyBase>();
@@ -23,16 +26,32 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyBase enemy2;
     [SerializeField] private EnemyBase enemy3;
 
+    [SerializeField] private int flowBar;
+    [SerializeField] private FlowBarController fbc;
+
+    private int dificulty = 0;
+    
+
 
     private bool heroIsAttacking = false;
     private bool enemyIsAttacking = false;
+
+    //Skills Variables
+
+    public bool SkipHeroesTurn = false;
+    public bool SkipEnemiesTurn = false;
+    public bool PACTwithTheDevil = false;
+
+    public static GameManager instance;
+
+
     public enum gameState
     {
         Idle,
         Walking,
         Fight,
         ReadingQuest,
-        bossFight
+        bossKilled
     }
 
     public enum combatState
@@ -46,14 +65,16 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
+        instance = this;
         heroesAlive.Add(hero1);
         heroesAlive.Add(hero2);
         heroesAlive.Add(hero3);
+        flowBar = 5;
 
     }
     public void Start()
     {
-        ChangeGameState(gameState.Idle);
+        
         
         UpdateAllHPbars();
 
@@ -62,11 +83,18 @@ public class GameManager : MonoBehaviour
     }
     public void Update()
     {
+
+        if(_gamestate == gameState.bossKilled)
+        {
+            Debug.Log("WE WIN");
+        }
+
         if(_gamestate == gameState.Walking)
         {
-            PlayHeroAnim(hero1,"Walk");
-            PlayHeroAnim(hero2, "Walk");
-            PlayHeroAnim(hero3, "Walk");
+            foreach (var hero in heroesAlive)
+            {
+                PlayHeroAnim(hero, "Walk");
+            }
             HeroMove.transform.position = new Vector3(HeroMove.transform.position.x + 10 * Time.deltaTime, 0, 0);
             foreach (var item in pointsInterest)
             {
@@ -84,9 +112,10 @@ public class GameManager : MonoBehaviour
 
         if (_gamestate == gameState.Idle)
         {
-            PlayHeroAnim(hero1, "Idle");
-            PlayHeroAnim(hero2, "Idle");
-            PlayHeroAnim(hero3, "Idle");
+            foreach (var hero in heroesAlive)
+            {
+                PlayHeroAnim(hero, "Idle");
+            }
         }
 
         if(_gamestate == gameState.Fight)
@@ -105,15 +134,9 @@ public class GameManager : MonoBehaviour
 
         if (_combatstate == combatState.Win)
         {
-            Debug.Log("YOU WON");
-            foreach(var coso in enemiesAlive)
-            {
-                Debug.Log(gameObject.name);
-                Destroy(coso.gameObject);
-            }
             enemiesAlive.Clear();
-
             _combatstate = combatState.Start;
+            PACTwithTheDevil = false;
             _gamestate = gameState.Walking;
             return;
         }
@@ -131,30 +154,28 @@ public class GameManager : MonoBehaviour
             {
                 return;
             }
-            if(hero1.alreadyAttacked == false)
+            foreach (var hero in heroesAlive)
             {
-                StartCoroutine(AttackEnemy(hero1));
-                return;
+                if (hero.alreadyAttacked == false)
+                {
+                    StartCoroutine(AttackEnemy(hero));
+                    return;
+                }
             }
 
-            if (hero2.alreadyAttacked == false)
+            if (SkipEnemiesTurn)
             {
-
-                StartCoroutine(AttackEnemy(hero2));
-                return;
+                _combatstate = combatState.HerosTurn;
+                SkipEnemiesTurn = false;
             }
-
-            if (hero3.alreadyAttacked == false)
+            else
             {
-
-                StartCoroutine(AttackEnemy(hero3));
-                return;
+                _combatstate = combatState.EnemysTurn;
             }
-
-            _combatstate = combatState.EnemysTurn;
-            hero1.alreadyAttacked = false;
-            hero2.alreadyAttacked = false;
-            hero3.alreadyAttacked = false;
+            foreach (var hero in heroesAlive)
+            {
+                hero.alreadyAttacked = false;
+            }
 
         }
 
@@ -164,30 +185,28 @@ public class GameManager : MonoBehaviour
             {
                 return;
             }
-            if (enemy1.alreadyAttacked == false)
+            foreach (var enemy in enemiesAlive)
             {
-                StartCoroutine(AttackHero(enemy1));
-                return;
+                if (enemy.alreadyAttacked == false)
+                {
+                    StartCoroutine(AttackHero(enemy));
+                    return;
+                }
             }
 
-            if (enemy2.alreadyAttacked == false)
+            if (SkipHeroesTurn)
             {
-
-                StartCoroutine(AttackHero(enemy2));
-                return;
+                _combatstate = combatState.EnemysTurn;
+                SkipHeroesTurn = false;
             }
-
-            if (enemy3.alreadyAttacked == false)
+            else
             {
-
-                StartCoroutine(AttackHero(enemy3));
-                return;
+                _combatstate = combatState.HerosTurn;
             }
-
-            _combatstate = combatState.HerosTurn;
-            enemy1.alreadyAttacked = false;
-            enemy2.alreadyAttacked = false;
-            enemy3.alreadyAttacked = false;
+            foreach (var enemy in enemiesAlive)
+            {
+                enemy.alreadyAttacked = false;
+            }
         }
 
 
@@ -206,22 +225,37 @@ public class GameManager : MonoBehaviour
 
     public void SetUpBattle()
     {
+        dificulty += 1;
+
+        if (dificulty != 4)
+        {
+            foreach (var hero in heroesAlive)
+            {
+                int random = Random.Range(0, EnemyPrefabs.Count);
+                EnemyBase eb = Instantiate(EnemyPrefabs[random]).GetComponent<EnemyBase>();
+                eb.transform.position = new Vector3(hero.transform.position.x + 5, hero.transform.position.y, 0);
+                enemiesAlive.Add(eb);
+
+            }
+
+            foreach (var enemy in enemiesAlive)
+            {
+                enemy.SetMaxHP(5 * dificulty);
+                enemy.SetDamage(1 * dificulty);
+            }
+
+            _combatstate = combatState.HerosTurn;
+        }
+        else
+        {
+            bossspawned = true;
+            enemiesAlive.Add(Instantiate(EnemyBoss[0]).GetComponent<EnemyBase>());
+            enemiesAlive[0].transform.position = new Vector3(hero2.transform.position.x + 5, 0, 0);
+            enemiesAlive[0].SetMaxHP(100);
+            enemiesAlive[0].SetDamage(10);
+            _combatstate = combatState.HerosTurn;
+        }
         
-        int random = Random.Range(0, EnemyPrefabs.Count);
-        enemy1 = Instantiate(EnemyPrefabs[random]).GetComponent<EnemyBase>();
-        enemy1.transform.position = new Vector3(hero1.transform.position.x+5, hero1.transform.position.y, 0);
-        random = Random.Range(0, EnemyPrefabs.Count);
-        enemy2 = Instantiate(EnemyPrefabs[random]).GetComponent<EnemyBase>();
-        enemy2.transform.position = new Vector3(hero2.transform.position.x+5, hero2.transform.position.y, 0);
-        random = Random.Range(0, EnemyPrefabs.Count);
-        enemy3 = Instantiate(EnemyPrefabs[random]).GetComponent<EnemyBase>();
-        enemy3.transform.position = new Vector3(hero3.transform.position.x + 5, hero3.transform.position.y, 0);
-
-        enemiesAlive.Add(enemy1);
-        enemiesAlive.Add(enemy2);
-        enemiesAlive.Add(enemy3);
-
-        _combatstate = combatState.HerosTurn;
     }
 
 
@@ -230,18 +264,32 @@ public class GameManager : MonoBehaviour
         if (enemiesAlive.Count == 0)
         {
             _combatstate = combatState.Win;
+
+            if (bossspawned)
+            {
+                _gamestate = gameState.bossKilled;
+            }
         }
         heroIsAttacking = true;
         hb.alreadyAttacked = true;
         hb.PlayAttack();
         int random = Random.Range(0, enemiesAlive.Count);
-        enemiesAlive[random].TakeDamage(hb.Damage);
+        if (PACTwithTheDevil)
+        {
+            enemiesAlive[random].TakeDamage(hb.Damage*3);
+
+        }
+        else
+        {
+            enemiesAlive[random].TakeDamage(hb.Damage);
+        }
+
         if (enemiesAlive[random].actualHP<=0)
         {
-            Debug.Log(random);
-            enemiesAlive[random].transform.position = new Vector3(0, 100, 0);
-            enemiesAlive.RemoveAt(random);
-            
+            flowBar -= 2;
+            UpdateFlowBar();
+            Destroy(enemiesAlive[random].gameObject);
+            enemiesAlive.RemoveAt(random);  
         }
         
         yield return new WaitForSeconds(1f);
@@ -249,6 +297,11 @@ public class GameManager : MonoBehaviour
         if (enemiesAlive.Count == 0)
         {
             _combatstate = combatState.Win;
+
+            if (bossspawned)
+            {
+                _gamestate = gameState.bossKilled;
+            }
         }
         
     }
@@ -263,15 +316,34 @@ public class GameManager : MonoBehaviour
         eb.alreadyAttacked = true;
         eb.PlayAttack();
         int random = Random.Range(0, enemiesAlive.Count);
-        heroesAlive[random].TakeDamage(eb.Damage);
+
+        if (PACTwithTheDevil)
+        {
+            heroesAlive[random].TakeDamage(eb.Damage * 2);
+
+        }
+        else
+        {
+            heroesAlive[random].TakeDamage(eb.Damage);
+        }
+
         if (heroesAlive[random].actualHP <= 0)
         {
+            flowBar += 5;
+            UpdateFlowBar();
+            Destroy(heroesAlive[random].gameObject);
             heroesAlive.RemoveAt(random);
+        }
+        else
+        {
+            flowBar += 1;
+            UpdateFlowBar();
         }
         yield return new WaitForSeconds(1f);
         enemyIsAttacking = false;
-        if (enemiesAlive.Count == 0)
+        if (heroesAlive.Count == 0)
         {
+            PACTwithTheDevil = false;
             _combatstate = combatState.Lost;
         }
 
@@ -289,19 +361,17 @@ public class GameManager : MonoBehaviour
     public void ScrollEvent()
     {
         Debug.Log("event");
-        PlayHeroAnim(hero1, "Idle");
-        PlayHeroAnim(hero2, "Idle");
-        PlayHeroAnim(hero3, "Idle");
+        foreach (var hero in heroesAlive)
+        {
+            hero.PlayIdle();
+        }
         _gamestate = gameState.Fight;
         _combatstate = combatState.Start;
     }
 
     
 
-    public void HealParty()
-    {
-
-    }
+    
 
     public void Meteor()
     {
@@ -310,9 +380,10 @@ public class GameManager : MonoBehaviour
 
     public void UpdateAllHPbars()
     {
-        hero1.updateHPBAR();
-        hero2.updateHPBAR();
-        hero3.updateHPBAR();
+        foreach (var hero in heroesAlive)
+        {
+            hero.updateHPBAR();
+        }
     }
 
     public void ChangeGameState(gameState gs)
@@ -337,4 +408,120 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    public void UpdateFlowBar()
+    {
+        if (flowBar > 10)
+        {
+            Debug.Log("GAME IS TOO DIFFICULT");
+            flowBar = 10;
+        }
+        if (flowBar<0)
+        {
+            Debug.Log("GAME IS TOO EASY");
+            flowBar = 0;
+        }
+        fbc.SetFlow(flowBar);
+    }
+
+    public void MakeCamp()
+    {
+        _gamestate = gameState.Idle;
+        StartCoroutine(HealWithDelay(heroesAlive));
+    }
+
+    IEnumerator HealWithDelay(List<HeroBase> listHero)
+    {
+        foreach (var hero in listHero)
+        {
+            yield return new WaitForSeconds(1f);
+            hero.Heal(hero.MaxHP);
+        }
+        _gamestate = gameState.Walking;
+
+    }
+
+    public void CheckIfInsideRadiusDamage(Vector3 pos,float radius, int dmg)
+    {
+        List<HeroBase> deadhero = new List<HeroBase>();
+        List<EnemyBase> deadEnemy = new List<EnemyBase>();
+        foreach (var hero in heroesAlive)
+        {
+            if(Vector3.Distance(hero.gameObject.transform.position, pos) < radius)
+            {
+                
+                hero.TakeDamage(dmg);
+                if (hero.actualHP <= 0)
+                {
+                    flowBar += 5;
+                    UpdateFlowBar();
+                    deadhero.Add(hero);
+                    
+                }
+                else
+                {
+                    flowBar += 1;
+                    UpdateFlowBar();
+                }
+            }
+        }
+
+        foreach (var hero in deadhero)
+        {
+            Destroy(hero.gameObject);
+            heroesAlive.Remove(hero);
+        }
+        
+
+        foreach (var enemy in enemiesAlive)
+        {
+            if (Vector3.Distance(enemy.gameObject.transform.position, pos) < radius)
+            {
+                enemy.TakeDamage(dmg);
+                if (enemy.actualHP <= 0)
+                {
+                    flowBar += 5;
+                    UpdateFlowBar();
+                    deadEnemy.Add(enemy);
+                }
+                else
+                {
+                    flowBar += 1;
+                    UpdateFlowBar();
+                }
+            }
+        }
+
+        foreach (var enemy in deadEnemy)
+        {
+            Destroy(enemy.gameObject);
+            enemiesAlive.Remove(enemy);
+        }
+
+    }
+
+
+    public void CheckIfInsideRadiusHeal(Vector3 pos, float radius, int heal)
+    {
+
+        foreach (var hero in heroesAlive)
+        {
+            if (Vector3.Distance(hero.gameObject.transform.position, pos) < radius)
+            {
+
+                hero.Heal(heal);
+            }
+        }
+
+
+        foreach (var enemy in enemiesAlive)
+        {
+            if (Vector3.Distance(enemy.gameObject.transform.position, pos) < radius)
+            {
+                enemy.Heal(heal);
+            }
+        }
+
+    }
+
 }

@@ -53,7 +53,18 @@ public class EnemyBase : MonoBehaviour
         hpbar.SetHealth(actualHP);
     }
 
+    public void SetMaxHP(int _maxHP)
+    {
+        MaxHP = _maxHP;
+        actualHP = MaxHP;
+        hpbar.SetBarMaxValue(MaxHP);
+        updateHPBAR();
+    }
 
+    public void SetDamage(int _damage)
+    {
+        Damage = _damage;
+    }
 
     public void Dead()
     {
