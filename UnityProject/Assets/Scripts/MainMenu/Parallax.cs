@@ -18,8 +18,7 @@ public class Parallax : MonoBehaviour
     private void Update()
     {
         Vector2 offset = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        Debug.Log(-Mathf.Infinity == offset.y);
-        Debug.Log(+Mathf.Infinity == offset.y);
+
 
 
         if (offset != null && !float.IsNaN(offset.y) && !float.IsNaN(offset.x)&& -Mathf.Infinity != offset.y && Mathf.Infinity != offset.y && -Mathf.Infinity != offset.x && Mathf.Infinity != offset.x)

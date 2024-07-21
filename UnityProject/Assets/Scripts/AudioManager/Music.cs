@@ -9,6 +9,7 @@ public class Music : MonoBehaviour
     [SerializeField] private AudioSource boss;
     [SerializeField] private AudioSource chill;
     [SerializeField] private AudioSource danger;
+    [SerializeField] private AudioSource menu;
 
     private void Awake()
     {
@@ -16,7 +17,7 @@ public class Music : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
-            PlayChillMusic();
+            PlayMenuMusic();
         }
         else
         {
@@ -61,28 +62,43 @@ public class Music : MonoBehaviour
     {
         StartCoroutine(FadeOut(chill, 0.5f));
         StartCoroutine(FadeOut(danger, 0.5f));
+        StartCoroutine(FadeOut(menu, 0.5f));
+
 
         // start game music
-        StartCoroutine(FadeIn(boss, 5f));
+        StartCoroutine(FadeIn(boss, 2.5f));
     }
 
     public void PlayDangerMusic()
     {
         StartCoroutine(FadeOut(chill, 0.5f));
         StartCoroutine(FadeOut(boss, 0.5f));
+        StartCoroutine(FadeOut(menu, 0.5f));
+
 
         // start game music
-        StartCoroutine(FadeIn(danger, 5f));
+        StartCoroutine(FadeIn(danger, 2.5f));
     }
 
     public void PlayChillMusic()
     {
         StartCoroutine(FadeOut(danger, 0.5f));
         StartCoroutine(FadeOut(boss, 0.5f));
+        StartCoroutine(FadeOut(menu, 0.5f));
 
         // start game music
-        StartCoroutine(FadeIn(chill, 5f));
+        StartCoroutine(FadeIn(chill, 2.5f));
     }
 
-    
+    public void PlayMenuMusic()
+    {
+        StartCoroutine(FadeOut(danger, 0.5f));
+        StartCoroutine(FadeOut(boss, 0.5f));
+        StartCoroutine(FadeOut(chill, 0.5f));
+
+        // start game music
+        StartCoroutine(FadeIn(menu, 2.5f));
+    }
+
+
 }

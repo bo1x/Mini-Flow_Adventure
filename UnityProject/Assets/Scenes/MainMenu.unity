@@ -1419,7 +1419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ec7afb5849d9e4993cee3dd7c17344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetMultiplier: 60
+  offsetMultiplier: 30
   smoothTime: 0.3
 --- !u!114 &1148920852
 MonoBehaviour:
@@ -2993,11 +2993,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: Music
       objectReference: {fileID: 0}
+    - target: {fileID: 8422304162072787469, guid: 0328864e9b71d2e4db1ed08d8b85119e, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9212176624403309903, guid: 0328864e9b71d2e4db1ed08d8b85119e, type: 3}
+      propertyPath: menu
+      value: 
+      objectReference: {fileID: 8284123706047121370}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0328864e9b71d2e4db1ed08d8b85119e, type: 3}
+--- !u!82 &8284123706047121370 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8422304162072787469, guid: 0328864e9b71d2e4db1ed08d8b85119e, type: 3}
+  m_PrefabInstance: {fileID: 8284123706047121369}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

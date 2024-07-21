@@ -1084,7 +1084,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 72787a3070245164ba90952b5e13dae6, type: 2}
   - {fileID: 11400000, guid: 14cb2cca1df99a146a3335332f6763cb, type: 2}
   flowbar: {fileID: 1432355591}
-  skills: {fileID: 1955069828}
+  skills: {fileID: 1206504497}
 --- !u!4 &527945495
 Transform:
   m_ObjectHideFlags: 0

@@ -64,12 +64,17 @@ public class SkillsManager : MonoBehaviour
     {
         go.GetComponent<Image>().color = new Color(1f, 1f, 1f);
         go.SetActive(false);
+        Debug.Log("Before yield return");
         yield return new WaitForSeconds(time);
+        Debug.Log("beforewhile");
 
         while (!go.transform.parent.gameObject.activeSelf)
         {
-            Debug.Log("parent not active");
+            Debug.Log("while");
+
+            yield return new WaitForSeconds(time);
         }
+        Debug.Log("active");
         
         go.SetActive(true);
     }
